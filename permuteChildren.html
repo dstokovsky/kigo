@@ -94,6 +94,21 @@ function permuteChildren(parent){
 </script>
 </head>
 <body>
-    
+<ul>
+                                <li>Apple
+                                        <ul>
+                                                <li>Golden</li>
+                                                <li>Lady</li>
+                                        </ul>
+                                </li>
+                                <li>Pear</li>
+                                <li>Strawberry</li>
+                                <li>Lemon</li>
+                                This/these text node(s) will be removed by permuteChildren()
+                        </ul>
+<script type="text/javascript">
+    var parent = document.getElementsByTagName( "ul" )[0];
+    permuteChildren(parent);
+</script>    
 </body>
 </html>
