@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>permuteChildren()</title>
+<script type="text/javascript">
+
+
+function permuteChildren(parent){
+	/*
+	Please write this function that:
+
+	- Verifies that the parent is a DOM node of type 'Element'. If not, it abandons by returning false.
+	- Cleans parent from any direct child that is not of type 'Element'.
+	- Randomly permutes parent's direct child elements.
+
+	Once this job acomplished, the function returns true.
+
+
+	Technical specifications:
+
+	- Pure DOM only (no framework)
+	- No HTML text (eg. innerHTML) manipulation
+
+
+	Example:
+
+		Given the following structure (hereby represented in HTML):
+
+			<ul>
+				<li>Apple
+					<ul>
+						<li>Golden</li>
+						<li>Lady</li>
+					</ul>
+				</li>
+				<li>Pear</li>
+				<li>Strawberry</li>
+				<li>Lemon</li>
+				This/these text node(s) will be removed by permuteChildren()
+			</ul>
+
+		After the call to:
+		
+			permuteChildren(<the root UL node>)
+
+		The structure would become (for instance):
+
+			<ul>
+				<li>Strawberry</li>
+				<li>Pear</li>
+				<li>Lemon</li>
+				<li>Apple
+					<ul>
+						<li>Golden</li>
+						<li>Lady</li>
+					</ul>
+				</li>
+			</ul>
+	*/
+       
+       if( !( parent instanceof Element ) ){
+           return false;
+       }
+       
+       //retrieving from all children only Element-type nodes
+       var element_type_children = [], 
+           children = parent.childNodes, 
+           index = 0;
+       for( index; index < children.length; index++ ){
+           if( children[ index ] instanceof Element ){
+               element_type_children.push( children[ index ].cloneNode( true ) );
+           }
+       }
+       
+       //Fisher-Yates shuffle
+       var element_type_children_length = element_type_children.length, 
+           new_index, 
+           tmp;
+       for( index = element_type_children_length - 1; index >= 0; index-- ){
+           new_index = Math.floor( Math.random() * index );
+           tmp = element_type_children[ index ];
+           element_type_children[ index ] = element_type_children[ new_index ];
+           element_type_children[ new_index ] = tmp;
+       }
+       
+       var cleaned_ul = document.createElement( "ul" );
+       for( index = 0; index < element_type_children.length; index++ ){
+           cleaned_ul.appendChild( element_type_children[ index ] );
+       }
+       parent.parentNode.appendChild( cleaned_ul );
+       
+       return true;
+}
+</script>
+</head>
+<body>
+    
+</body>
+</html>
